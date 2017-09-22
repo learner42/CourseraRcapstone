@@ -25,10 +25,11 @@ read_eq_clean_data <-function(raw_data_fn = file.path(system.file("extdata",
 #' @param df The uncleaned data.frame
 #' @return A clean data.frame
 #'
-#' @importFrom dplyr %>% mutate
-#' @importFrom tidyr unite_ extract_
+#' @importFrom dplyr %>% mutate_ coalesce
+#' @importFrom tidyr unite_
 #' @importFrom stringr str_to_title
 #'
+#' @details Date objects can only store positive years. BC years are marked with the IS_BC column
 #' @examples \dontrun{
 #'   raw_data <- readr::read_delim(raw_data_fn, "\t"))
 #'   clean_data <- eq_clean_data(raw_data)
@@ -36,10 +37,13 @@ read_eq_clean_data <-function(raw_data_fn = file.path(system.file("extdata",
 #' @export
 eq_clean_data <-function(df) {
     df %>%
-        tidyr::unite_("DATE", c("YEAR", "MONTH", "DAY")) %>%
-        dplyr::mutate_(DATE = ~lubridate::ymd(DATE)) %>%
-        dplyr::mutate_(LONGITUDE = ~as.numeric(LONGITUDE),
+        dplyr::mutate_(YEARSTR = ~stringr::str_pad(as.character(abs(YEAR)), width = 4,
+                                                   side = "left", pad = "0"),
+                       DATESTR = ~paste(YEARSTR, MONTH, DAY, sep = "-"),
+                       DATE = ~lubridate::ymd(DATESTR, truncated = 2),
+                       LONGITUDE = ~as.numeric(LONGITUDE),
                        LATITUDE = ~as.numeric(LATITUDE)) %>%
+        dplyr::mutate_(IS_BC = ~YEAR < 0) %>%
         eq_location_clean()
 }
 
@@ -47,7 +51,7 @@ eq_clean_data <-function(df) {
 #' @param df The uncleaned data.frame
 #' @return A clean data.frame
 #'
-#' @importFrom tidyr unite_ extract_
+#' @importFrom tidyr extract_
 #' @importFrom dplyr mutate_
 eq_location_clean <- function(df) {
     df %>%

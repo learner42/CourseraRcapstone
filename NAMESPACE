@@ -3,7 +3,7 @@
 export(eq_clean_data)
 export(read_eq_clean_data)
 importFrom(dplyr,"%>%")
-importFrom(dplyr,mutate)
+importFrom(dplyr,coalesce)
 importFrom(dplyr,mutate_)
 importFrom(readr,read_delim)
 importFrom(stringr,str_to_title)
