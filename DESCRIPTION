@@ -16,6 +16,5 @@ Imports: dplyr,
     readr,
     tidyr,
     lubridate,
-    stringr,
-    rlang
+    stringr
 VignetteBuilder: knitr

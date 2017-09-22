@@ -17,3 +17,8 @@ A clean data.frame
 \description{
 Read earthquake data on a clean dataframe
 }
+\examples{
+\dontrun{
+  clean_data <- read_eq_clean_data()
+}
+}

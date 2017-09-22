@@ -15,3 +15,9 @@ A clean data.frame
 \description{
 Takes raw NOAA data frame and returns a clean data frame
 }
+\examples{
+\dontrun{
+  raw_data <- readr::read_delim(raw_data_fn, "\\t"))
+  clean_data <- eq_clean_data(raw_data)
+}
+}
