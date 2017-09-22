@@ -1,6 +1,6 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "Tutorial for custom geom to draw earthquake timeline"
+author: "Coursera Learner 42"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -9,50 +9,41 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+```{r, echo=FALSE}
+library(CourseraRcapstone)
+library(magrittr)
+library(ggplot2)
+library(grid)
+options(width = 120)
+```
+## Read the clean data
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
-
-## Vignette Info
-
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+Read the raw data manually then pass to the `eq_clean_data` function
+```{r, message=FALSE, WARNING=FALSE}
+raw_data_fn <- file.path(system.file("extdata", package="CourseraRcapstone"),"signif.txt")
+data <- readr::read_delim(raw_data_fn, "\t") %>% eq_clean_data
+str(data)
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+Or use directy the built in `read_eq_clean_data` function
+```{r, message=FALSE, WARNING=FALSE}
+data2 <- read_eq_clean_data(raw_data_fn)
+identical(data, data2)
 ```
 
-Also a quote using `>`:
+## Draw earthquake timeline
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+The follong snippet draws earthquakes observed in the US and Canada from 2000
+```{r, fig.show='hold', message=FALSE, warning=FALSE}
+    read_eq_clean_data() %>%
+        dplyr::filter(YEAR > 2000 & !IS_BC & COUNTRY %in% c("USA", "CANADA")) %>%
+        dplyr::mutate(TOTAL_DEATHS = as.numeric(TOTAL_DEATHS),
+                      EQ_PRIMARY = as.numeric(EQ_PRIMARY)) %>%
+        ggplot2::ggplot(ggplot2::aes(x = DATE,
+                                     y = COUNTRY,
+                                     color = TOTAL_DEATHS,
+                                     fill = TOTAL_DEATHS,
+                                     size = EQ_PRIMARY
+                                     )) +
+        geom_timeline()
+```

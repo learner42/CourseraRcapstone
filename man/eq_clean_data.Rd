@@ -15,6 +15,9 @@ A clean data.frame
 \description{
 Takes raw NOAA data frame and returns a clean data frame
 }
+\details{
+Date objects can only store positive years. BC years are marked with the IS_BC column
+}
 \examples{
 \dontrun{
   raw_data <- readr::read_delim(raw_data_fn, "\\t"))

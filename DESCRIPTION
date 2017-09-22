@@ -16,5 +16,6 @@ Imports: dplyr,
     readr,
     tidyr,
     lubridate,
-    stringr
+    stringr,
+    ggplot2
 VignetteBuilder: knitr
