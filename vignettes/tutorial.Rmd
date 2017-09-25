@@ -18,18 +18,20 @@ options(width = 120)
 ```
 ## Read and clean the data
 
-Use directy the built in `read_eq_clean_data` function
-```{r, message=FALSE, WARNING=FALSE}
-data2 <- read_eq_clean_data(raw_data_fn)
-identical(data, data2)
-```
-
-Or read the raw data manually then pass to the `eq_clean_data` function
+Read the raw data manually then pass to the `eq_clean_data` function
 ```{r, message=FALSE, WARNING=FALSE}
 raw_data_fn <- file.path(system.file("extdata", package="CourseraRcapstone"),"signif.txt")
 data <- readr::read_delim(raw_data_fn, "\t") %>% eq_clean_data
 str(data)
 ```
+
+Or use directy the built in `read_eq_clean_data` function
+```{r, message=FALSE, WARNING=FALSE}
+data2 <- read_eq_clean_data(raw_data_fn)
+identical(data, data2)
+```
+
+Or, in more details
 
 ## Draw earthquake timeline
 
