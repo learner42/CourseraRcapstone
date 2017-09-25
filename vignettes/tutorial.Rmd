@@ -75,5 +75,6 @@ The follong snippet map the earthquakes observed in the Mexico from 2000
 ```{r, fig.show='hold', message=FALSE, warning=FALSE}
     read_eq_clean_data() %>%
         dplyr::filter(YEAR > 2000 & !IS_BC & COUNTRY %in% c("MEXICO")) %>%
-	eq_map(annot_col = "DATE")
+        dplyr::mutate(popup_text = eq_create_label(.)) %>%
+        eq_map(annot_col = "popup_text")
 ```
