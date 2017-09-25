@@ -54,7 +54,7 @@ geom_timeline <- function(mapping = NULL, data = NULL, stat = "identity",
 #'         geom_timeline() +
 #'         theme_timeline() +
 #'         labs(size = "Richter scale value", color = "# deaths") +
-    ##     geom_timeline_label(ggplot2::aes(label = LOCATION_NAME), n_max = 3)
+#'         geom_timeline_label(ggplot2::aes(label = LOCATION_NAME), n_max = 3)
 #' }
 #'
 #' @export
@@ -72,6 +72,13 @@ geom_timeline_label <- function(mapping = NULL, data = NULL, stat = "identity",
 
 #' Specific them for our timelines
 #' @return The theme for timeline goems
+#'
+#' @examples \dontrun{
+#'   data %>%
+#'     ggplot2::gplot(ggplot2::aes(x=DATE, color = TOTAL_DEATHS, size = EQ_PRIMARY)) +
+#'     geom_timeline() +
+#'     theme_timeline()
+#' }
 #' @export
 theme_timeline <- function() {
     ggplot2::theme_bw() +
@@ -84,7 +91,7 @@ theme_timeline <- function() {
 #' Custom Geom proto for timeline labesl
 #' @importFrom ggplot2 ggproto Geom aes draw_key_point
 #'
-#' @details This proto is not exported
+#' @details This proto is for internal use only and not exported
 GeomTimelineLabel <-
     ggplot2::ggproto(
         "GeomTimelineLabel", ggplot2::Geom,
@@ -132,7 +139,7 @@ GeomTimelineLabel <-
 #'
 #' @importFrom ggplot2 ggproto Geom aes draw_key_point
 #' @importFrom grid pointsGrob unit gpar polylineGrob addGrob
-#' @details This proto is not exported
+#' @details This proto is for internal use only and not exported
 GeomTimeline <-
     ggplot2::ggproto("GeomTimeline", ggplot2::Geom,
                      required_aes = c("x"),

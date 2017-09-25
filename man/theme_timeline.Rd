@@ -12,3 +12,11 @@ The theme for timeline goems
 \description{
 Specific them for our timelines
 }
+\examples{
+\dontrun{
+  data \%>\%
+    ggplot2::gplot(ggplot2::aes(x=DATE, color = TOTAL_DEATHS, size = EQ_PRIMARY)) +
+    geom_timeline() +
+    theme_timeline()
+}
+}

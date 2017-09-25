@@ -31,6 +31,12 @@ eq_map <- function(data, annot_col = "DATE") {
 #'     labels for each ("Location", "Total deaths", and "Magnitude"). If an earthquake is missing
 #'     values for any of these, both the label and the value should be skipped for that element of
 #'     the tag.
+#'
+#' @examples \dontrun{
+#'   data %>%
+#'     dplyr::mutate(popup_text = eq_create_label(.)) %>%
+#'     eq_map(annot_col = "popup_text")
+#' }
 #' @export
 eq_create_label <- function(data) {
     line1 <- ifelse(is.na(data$LOCATION_NAME),

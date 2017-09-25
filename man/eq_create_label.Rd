@@ -23,3 +23,10 @@ This function should put together a character string for each earthquake that wi
     values for any of these, both the label and the value should be skipped for that element of
     the tag.
 }
+\examples{
+\dontrun{
+  data \%>\%
+    dplyr::mutate(popup_text = eq_create_label(.)) \%>\%
+    eq_map(annot_col = "popup_text")
+}
+}

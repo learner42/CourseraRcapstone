@@ -12,6 +12,6 @@ GeomTimelineLabel
 Custom Geom proto for timeline labesl
 }
 \details{
-This proto is not exported
+This proto is for internal use only and not exported
 }
 \keyword{datasets}

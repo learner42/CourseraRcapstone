@@ -53,7 +53,10 @@ eq_clean_data <-function(df) {
 #' @return A clean data.frame
 #'
 #' @importFrom tidyr extract_
-#' @importFrom dplyr mutate_
+#' @importFrom dplyr mutate
+#' @examples \dontrun{
+#'   data <- uncleaned_data %>% eq_location_clean()
+#' }
 eq_location_clean <- function(df) {
     df %>%
         tidyr::extract_("LOCATION_NAME", c("LOCATION_NAME_COUNTRY", "LOCATION_NAME"),

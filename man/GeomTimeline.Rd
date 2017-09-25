@@ -12,6 +12,6 @@ GeomTimeline
 Custom Geom proto for the timeline
 }
 \details{
-This proto is not exported
+This proto is for internal use only and not exported
 }
 \keyword{datasets}

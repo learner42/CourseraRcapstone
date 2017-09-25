@@ -15,3 +15,8 @@ A clean data.frame
 \description{
 Clean up the LOCATION_NAME column
 }
+\examples{
+\dontrun{
+  data <- uncleaned_data \%>\% eq_location_clean()
+}
+}

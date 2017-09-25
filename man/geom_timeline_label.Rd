@@ -75,6 +75,7 @@ In a typical use case, the x aesthetic is already inherited from the previous la
         geom_timeline() +
         theme_timeline() +
         labs(size = "Richter scale value", color = "# deaths") +
+        geom_timeline_label(ggplot2::aes(label = LOCATION_NAME), n_max = 3)
 }
 
 }
