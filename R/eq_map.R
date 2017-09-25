@@ -49,7 +49,7 @@ eq_create_label <- function(data) {
     line3 <- ifelse(is.na(data$TOTAL_DEATHS),
                     "",
                     paste("<b>Total deaths:</b>", data$TOTAL_DEATHS, "<br />"))
-    paste(line1, line2, line3)
+    paste(line1, line2, line3) %>% trimws()
 }
 
 

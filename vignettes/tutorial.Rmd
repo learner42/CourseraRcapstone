@@ -16,19 +16,19 @@ library(ggplot2)
 library(grid)
 options(width = 120)
 ```
-## Read the clean data
+## Read and clean the data
 
-Read the raw data manually then pass to the `eq_clean_data` function
+Use directy the built in `read_eq_clean_data` function
+```{r, message=FALSE, WARNING=FALSE}
+data2 <- read_eq_clean_data(raw_data_fn)
+identical(data, data2)
+```
+
+Or read the raw data manually then pass to the `eq_clean_data` function
 ```{r, message=FALSE, WARNING=FALSE}
 raw_data_fn <- file.path(system.file("extdata", package="CourseraRcapstone"),"signif.txt")
 data <- readr::read_delim(raw_data_fn, "\t") %>% eq_clean_data
 str(data)
-```
-
-Or use directy the built in `read_eq_clean_data` function
-```{r, message=FALSE, WARNING=FALSE}
-data2 <- read_eq_clean_data(raw_data_fn)
-identical(data, data2)
 ```
 
 ## Draw earthquake timeline
@@ -51,7 +51,10 @@ The follong snippet draws earthquakes observed in the US and Canada from 2000
 
 ## Draw earthquake timeline with labels
 
-The follong snippet draws earthquakes observed in the US and Canada from 2000
+The follong snippet draws earthquakes observed in the US and Canada from 2000 using:
+* `geom_timeline` as previously to draw the timeline
+* `geom_timeline_label` to add the labels.`
+
 ```{r, fig.show='hold', message=FALSE, warning=FALSE}
     read_eq_clean_data() %>%
         dplyr::filter(YEAR > 2000 & !IS_BC & COUNTRY %in% c("USA", "CANADA")) %>%
@@ -71,7 +74,11 @@ The follong snippet draws earthquakes observed in the US and Canada from 2000
 
 ## Visualize the earthquakes on a map with leaflet
 
-The follong snippet map the earthquakes observed in the Mexico from 2000
+The follong snippet map the earthquakes observed in the Mexico from 2000. It uses
+* the input that we saw previously
+* the `eq_map` function that draw a circle at each earthquake
+* the `eq_create_label` function that create labels.
+
 ```{r, fig.show='hold', message=FALSE, warning=FALSE}
     read_eq_clean_data() %>%
         dplyr::filter(YEAR > 2000 & !IS_BC & COUNTRY %in% c("MEXICO")) %>%
