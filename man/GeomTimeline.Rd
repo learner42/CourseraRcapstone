@@ -11,4 +11,7 @@ GeomTimeline
 \description{
 Custom Geom proto for the timeline
 }
+\details{
+This proto is not exported
+}
 \keyword{datasets}

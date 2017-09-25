@@ -41,9 +41,30 @@ The follong snippet draws earthquakes observed in the US and Canada from 2000
                       EQ_PRIMARY = as.numeric(EQ_PRIMARY)) %>%
         ggplot2::ggplot(ggplot2::aes(x = DATE,
                                      y = COUNTRY,
-                                     color = TOTAL_DEATHS,
-                                     fill = TOTAL_DEATHS,
+                                     colour = TOTAL_DEATHS,
                                      size = EQ_PRIMARY
                                      )) +
-        geom_timeline()
+        geom_timeline() +
+	theme_timeline() +
+	labs(size = "Richter scale value", color = "# deaths", fill = "# deaths")
+```
+
+## Draw earthquake timeline with labels
+
+The follong snippet draws earthquakes observed in the US and Canada from 2000
+```{r, fig.show='hold', message=FALSE, warning=FALSE}
+    read_eq_clean_data() %>%
+        dplyr::filter(YEAR > 2000 & !IS_BC & COUNTRY %in% c("USA", "CANADA")) %>%
+        dplyr::mutate(TOTAL_DEATHS = as.numeric(TOTAL_DEATHS),
+                      EQ_PRIMARY = as.numeric(EQ_PRIMARY)) %>%
+        ggplot2::ggplot(ggplot2::aes(x = DATE,
+                                     y = COUNTRY,
+                                     colour = TOTAL_DEATHS,
+                                     size = EQ_PRIMARY
+                                     )) +
+        geom_timeline() +
+	theme_timeline() +
+	labs(size = "Richter scale value", color = "# deaths") +
+	geom_timeline_label(ggplot2::aes(label = LOCATION_NAME), n_max = 3)
+
 ```
