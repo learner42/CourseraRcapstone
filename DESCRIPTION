@@ -10,12 +10,13 @@ LazyData: true
 RoxygenNote: 6.0.1
 Suggests: knitr,
     rmarkdown,
-    testthat,
-    magrittr
+    testthat
 Imports: dplyr,
     readr,
     tidyr,
     lubridate,
     stringr,
-    ggplot2
+    ggplot2,
+    magrittr,
+    leaflet
 VignetteBuilder: knitr

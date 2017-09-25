@@ -25,7 +25,8 @@ read_eq_clean_data <-function(raw_data_fn = file.path(system.file("extdata",
 #' @param df The uncleaned data.frame
 #' @return A clean data.frame
 #'
-#' @importFrom dplyr %>% mutate_ coalesce
+#' @importFrom magrittr %>%
+#' @importFrom dplyr mutate_ coalesce
 #' @importFrom tidyr unite_
 #' @importFrom stringr str_to_title
 #'
